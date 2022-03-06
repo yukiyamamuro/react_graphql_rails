@@ -1854,6 +1854,14 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-relay@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-relay/-/react-relay-13.0.1.tgz#acc25817b29febdc6b251fa076ccbe6ee9b97b1f"
+  integrity sha512-nEjkbipJ84oOvjDz8X5bqkpaPjq3tpQekaS9P/3rlePIigttN3m3S6HMthKCeRWwXeKNdVqrMcmdPXI0TQly3g==
+  dependencies:
+    "@types/react" "*"
+    "@types/relay-runtime" "*"
+
 "@types/react@*", "@types/react@^17.0.20":
   version "17.0.39"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
@@ -1862,6 +1870,11 @@
     "@types/prop-types" "*"
     "@types/scheduler" "*"
     csstype "^3.0.2"
+
+"@types/relay-runtime@*", "@types/relay-runtime@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@types/relay-runtime/-/relay-runtime-13.0.2.tgz#2b672d60ccf7cdb065fbf79724f6b34dfa79d016"
+  integrity sha512-3K0ONsoDb4xfGhOUfXpFQKM4xziP/YZzpbWEb0LfEC4S7n5zAn/IfQq+PISfVaU6wvSalz56lv/q/JBELzJ0RQ==
 
 "@types/resolve@1.17.1":
   version "1.17.1"
@@ -4518,6 +4531,11 @@ graphql@15.3.0:
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.3.0.tgz#3ad2b0caab0d110e3be4a5a9b2aa281e362b5278"
   integrity sha512-GTCJtzJmkFLWRfFJuoo9RWWa/FfamUHgiFosxi/X1Ani4AVWbeyBenZTNX6dM+7WSbbFfTo/25eh0LLkwHMw2w==
+
+graphql@^16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.3.0.tgz#a91e24d10babf9e60c706919bb182b53ccdffc05"
+  integrity sha512-xm+ANmA16BzCT5pLjuXySbQVFwH3oJctUVdy81w1sV0vBU0KgDdBGtxQOUd5zqOBk/JayAFeG8Dlmeq74rjm/A==
 
 gzip-size@^6.0.0:
   version "6.0.0"
@@ -8323,7 +8341,7 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.4.2:
+typescript@4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.2.tgz#fe12d2727b708f4eef40f51598b3398baa9611d4"
   integrity sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==

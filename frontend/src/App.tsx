@@ -1,23 +1,49 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import fetchGraphQL from './fetchGraphQL';
 
 function App() {
+  const [lastName, setLastName] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchGraphQL(`
+      query Users {
+        users(first: 2){
+          nodes{
+            lastName
+            firstName
+          }
+        }
+      }
+    `).then(response => {
+      if (!isMounted) {
+        return;
+      }
+      const data = response.data;
+      setFirstName(data.users.nodes[0].firstName);
+      setLastName(data.users.nodes[0].lastName);
+    }).catch(error => {
+      console.error(error);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          {firstName != null ? `FirstName: ${firstName}` : "Loading"}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>
+          {lastName != null ? `LastName: ${lastName}` : "Loading"}
+        </p>
       </header>
     </div>
   );
