@@ -1,52 +1,56 @@
-import { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import fetchGraphQL from './fetchGraphQL';
+import graphql from 'babel-plugin-relay/macro';
+import {
+  RelayEnvironmentProvider,
+  loadQuery,
+  usePreloadedQuery,
+} from 'react-relay/hooks';
+import RelayEnvironment from './RelayEnvironment';
+const { Suspense } = React;
 
-function App() {
-  const [lastName, setLastName] = useState(null);
-  const [firstName, setFirstName] = useState(null);
-
-  useEffect(() => {
-    let isMounted = true;
-    fetchGraphQL(`
-      query Users {
-        users(first: 2){
-          nodes{
-            lastName
-            firstName
-          }
-        }
+const RepositoryFullNameQuery = graphql`
+  query AppRepositoryFullNameQuery {
+    users(last: 2){
+      nodes{
+        lastName
+        firstName
       }
-    `).then(response => {
-      if (!isMounted) {
-        return;
-      }
-      const data = response.data;
-      setFirstName(data.users.nodes[0].firstName);
-      setLastName(data.users.nodes[0].lastName);
-    }).catch(error => {
-      console.error(error);
-    });
+    }
+  }
+`;
 
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+const preloadedQuery = loadQuery(
+  RelayEnvironment,
+  RepositoryFullNameQuery,
+  {},
+);
+
+function App(props: any) {
+  const data: any = usePreloadedQuery(RepositoryFullNameQuery, props.preloadedQuery);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {firstName != null ? `FirstName: ${firstName}` : "Loading"}
-        </p>
-        <p>
-          {lastName != null ? `LastName: ${lastName}` : "Loading"}
-        </p>
+        <h2>ユーザー１</h2>
+        <p>{data.users.nodes[0].firstName}</p>
+        <p>{data.users.nodes[0].lastName}</p>
+        <h2>ユーザー２</h2>
+        <p>{data.users.nodes[1].firstName}</p>
+        <p>{data.users.nodes[1].lastName}</p>
       </header>
     </div>
   );
 }
 
-export default App;
+function AppRoot(props: any) {
+  return (
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <Suspense fallback={'Loading...'}>
+        <App preloadedQuery={preloadedQuery} />
+      </Suspense>
+    </RelayEnvironmentProvider>
+  );
+}
+
+export default AppRoot;
